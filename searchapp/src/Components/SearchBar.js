@@ -82,8 +82,8 @@ function SearchBar({ placeholder }) {
         <div className="dataResult">
           {responseData.map((value, key) => {
             return (
-              <a className="dataItem" href={value.companyDetails.url} target="_blank">
-                <p>{value.companyDetails.name} </p>
+              <a className="dataItem" href={value.url} target="_blank">
+                <p>{value.name} </p>
                
                 
               </a>
