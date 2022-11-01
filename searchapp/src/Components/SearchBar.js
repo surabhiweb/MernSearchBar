@@ -2,61 +2,47 @@ import React, { useState } from "react";
 import "./SearchBar.css";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 
-
-// function getAds(text) {
-
-// }
-
-//type responseDate = 
-
-// {
-//   "company_name: "
-// }
-
+const columns = [
+  { field: "companyId", headerName: "Id", width: 50 },
+  { field: "primaryText", headerName: "primaryText", width: 200 },
+  { field: "headline", headerName: "headline", width: 200 },
+  { field: "description", headerName: "description", width: 200 },
+  { field: "CTA", headerName: "CTA", width: 100 },
+  { field: "imageUrl", headerName: "imageUrl", width: 230 },
+];
 
 function SearchBar({ placeholder }) {
   // const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
-  const [ responseData, setResponseData] = useState([]);
+  const [responseData, setResponseData] = useState([]);
 
-  const baseUrl = "http://localhost:3002/"
-
+  const baseUrl = "http://localhost:3002/";
 
   React.useEffect(() => {
-    if(wordEntered.length>0){
-      axios.get(baseUrl + "get-ads/"+ wordEntered).then((response) => {
-        // console.log(response.data.ads);
-        setResponseData(response.data.ads)
-        console.log(responseData)
-        // console.log(JSON.parse(response));
-      }).catch((err) => console.log(err))
+    if (wordEntered.length > 0) {
+      axios
+        .get(baseUrl + "get-ads/" + wordEntered)
+        .then((response) => {
+          // console.log(response.data.ads);
+          setResponseData(response.data.ads);
+          console.log(responseData);
+          // console.log(JSON.parse(response));
+        })
+        .catch((err) => console.log(err));
     }
-    
-  }, [wordEntered])
-
+  }, [wordEntered]);
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
-    // const newFilter = responseData.filter((value) => {
-    //   console.log("value->name",value.name);
-    //   console.log("value->ads",value.ads);
-    //   console.log("value->primaryText",value.ads.primaryText);
-    //    return value.name.toLowerCase().includes(searchWord.toLowerCase())|| value.ads.primaryText.included(searchWord.toLowerCase());
-    // });
-
-  //   if (searchWord === "") {
-  //     setFilteredData([]);
-  //   } else {
-  //     setFilteredData(newFilter);
-  //   }
   };
 
   const clearInput = () => {
     // setFilteredData([]);
-       setWordEntered("");
+    setWordEntered("");
   };
 
   // console.log("filteredData->",filteredData);
@@ -80,15 +66,29 @@ function SearchBar({ placeholder }) {
       </div>
       {responseData.length !== 0 && (
         <div className="dataResult">
-          {responseData.map((value, key) => {
-            return (
-              <a className="dataItem" href={value.url} target="_blank">
-                <p>{value.name} </p>
-               
-                
-              </a>
-            );
-          })}
+          {/* {responseData.map((value, key) => { */}
+          {/* return ( */}
+          {/* //  <a className="dataItem" href={value.url} target="_blank">
+              //    <p>{value.name} </p>
+              //  </a> */}
+
+          <div
+            className="dataItem"
+            style={{ height: 700, width: "100%", textAlign: "center" }}
+          >
+            <DataGrid
+              rows={responseData}
+              columns={columns}
+              getRowId={(row) => row._id}
+              rowsPerPageOptions={[]}
+              _id="_id"
+            />
+          </div>
+
+          {/* ); */}
+          {/* } */}
+          {/* ) */}
+          {/* } */}
         </div>
       )}
     </div>
