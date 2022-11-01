@@ -6,12 +6,32 @@ import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 
 const columns = [
-  { field: "companyId", headerName: "Id", width: 50 },
-  { field: "primaryText", headerName: "primaryText", width: 200 },
-  { field: "headline", headerName: "headline", width: 200 },
-  { field: "description", headerName: "description", width: 200 },
-  { field: "CTA", headerName: "CTA", width: 100 },
-  { field: "imageUrl", headerName: "imageUrl", width: 230 },
+  { field: "companyId", headerName: "Id", width: 50, headerAlign: "center" },
+  {
+    field: "primaryText",
+    headerName: "primaryText",
+    width: 200,
+    headerAlign: "center",
+  },
+  {
+    field: "headline",
+    headerName: "headline",
+    width: 200,
+    headerAlign: "center",
+  },
+  {
+    field: "description",
+    headerName: "description",
+    width: 200,
+    headerAlign: "center",
+  },
+  { field: "CTA", headerName: "CTA", width: 100, headerAlign: "center" },
+  {
+    field: "imageUrl",
+    headerName: "imageUrl",
+    width: 230,
+    headerAlign: "center",
+  },
 ];
 
 function SearchBar({ placeholder }) {
@@ -77,6 +97,14 @@ function SearchBar({ placeholder }) {
             style={{ height: 700, width: "100%", textAlign: "center" }}
           >
             <DataGrid
+              sx={{
+                boxShadow: 2,
+                border: 2,
+                borderColor: "pink",
+                "& .MuiDataGrid-cell:hover": {
+                  color: "purple",
+                },
+              }}
               rows={responseData}
               columns={columns}
               getRowId={(row) => row._id}
